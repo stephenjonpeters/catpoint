@@ -67,8 +67,12 @@ public class SecurityService {
             return; //no problem if the system is disarmed
         }
         switch(securityRepository.getAlarmStatus()) {
-            case NO_ALARM -> setAlarmStatus(AlarmStatus.PENDING_ALARM);
-            case PENDING_ALARM -> setAlarmStatus(AlarmStatus.ALARM);
+            case NO_ALARM:
+                    setAlarmStatus(AlarmStatus.PENDING_ALARM);
+                    break;
+            case PENDING_ALARM:
+                    setAlarmStatus(AlarmStatus.ALARM);
+                    break;
         }
     }
 
@@ -77,8 +81,12 @@ public class SecurityService {
      */
     private void handleSensorDeactivated() {
         switch(securityRepository.getAlarmStatus()) {
-            case PENDING_ALARM -> setAlarmStatus(AlarmStatus.NO_ALARM);
-            case ALARM -> setAlarmStatus(AlarmStatus.PENDING_ALARM);
+            case PENDING_ALARM:
+                   setAlarmStatus(AlarmStatus.NO_ALARM);
+                   break;
+            case ALARM:
+                   setAlarmStatus(AlarmStatus.PENDING_ALARM);
+                   break;
         }
     }
 
@@ -106,7 +114,7 @@ public class SecurityService {
         catDetected(imageService.imageContainsCat(currentCameraImage, 50.0f));
     }
 
-    public AlarmStatus getAlarmStatus() {
+    public AlarmStatus getRepoAlarmStatus() {
         return securityRepository.getAlarmStatus();
     }
 

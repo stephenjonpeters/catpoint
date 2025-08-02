@@ -43,7 +43,7 @@ public class ImagePanel extends JPanel implements StatusListener {
         JButton addPictureButton = new JButton("Refresh Camera");
         addPictureButton.addActionListener(e -> {
             JFileChooser chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new File("."));
+            chooser.setCurrentDirectory(new File("src/test/resources/"));
             chooser.setDialogTitle("Select Picture");
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             if(chooser.showOpenDialog(this) != JFileChooser.APPROVE_OPTION) {

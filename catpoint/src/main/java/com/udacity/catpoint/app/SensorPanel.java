@@ -9,10 +9,6 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
-/**
- * Panel that allows users to add sensors to their system. Sensors may be
- * manually set to "active" and "inactive" to test the system.
- */
 public class SensorPanel extends JPanel {
 
     private SecurityService securityService;

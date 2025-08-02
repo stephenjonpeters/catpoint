@@ -15,12 +15,12 @@ import javax.swing.*;
  * all our dependencies and providing them to other classes as necessary.
  */
 public class CatpointGui extends JFrame {
-    private SecurityRepository securityRepository = new FakeSecurityRepository();
+    private SecurityRepository securityRepository = FakeSecurityRepository.getInstance();
     private FakeImageService imageService = new FakeImageService();
     private SecurityService securityService = new SecurityService(securityRepository, imageService);
     private DisplayPanel displayPanel = new DisplayPanel(securityService);
     private ControlPanel controlPanel = new ControlPanel(securityService);
-    private SensorPanel sensorPanel = new SensorPanel(securityService);
+  //  private SensorPanel sensorPanel = new SensorPanel(securityService);
     private ImagePanel imagePanel = new ImagePanel(securityService);
 
     public CatpointGui() {
@@ -34,7 +34,7 @@ public class CatpointGui extends JFrame {
         mainPanel.add(displayPanel, "wrap");
         mainPanel.add(imagePanel, "wrap");
         mainPanel.add(controlPanel, "wrap");
-        mainPanel.add(sensorPanel);
+   //     mainPanel.add(sensorPanel);
 
         getContentPane().add(mainPanel);
 

@@ -28,7 +28,7 @@ public class DisplayPanel extends JPanel implements StatusListener {
 
         panelLabel.setFont(StyleService.HEADING_FONT);
 
-        notify(securityService.getAlarmStatus());
+        notify(securityService.getRepoAlarmStatus());
 
         add(panelLabel, "span 2, wrap");
         add(systemStatusLabel);
