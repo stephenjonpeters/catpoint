@@ -4,20 +4,21 @@ package com.udacity.catpoint.service;
 import com.udacity.catpoint.app.StatusListener;
 import com.udacity.catpoint.data.AlarmStatus;
 import com.udacity.catpoint.data.ArmStatus;
-import com.udacity.catpoint.data.SecurityRepository;
+import com.udacity.catpoint.data.FakeSecurityRepository;
 import com.udacity.catpoint.data.Sensor;
 import com.udacity.images.service.FakeImageService;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SecurityService {
 
     private FakeImageService imageService;
-    private SecurityRepository securityRepository;
+    private FakeSecurityRepository securityRepository;
     private Set<StatusListener> statusListeners = new HashSet<>();
 
-    public SecurityService(SecurityRepository securityRepository, FakeImageService imageService) {
+    public SecurityService(FakeSecurityRepository securityRepository, FakeImageService imageService) {
         this.securityRepository = securityRepository;
         this.imageService = imageService;
     }
@@ -85,17 +86,20 @@ public class SecurityService {
         return securityRepository.getAlarmStatus();
     }
 
+    public void setRepoAlarmStatus(AlarmStatus status) {
+        securityRepository.setAlarmStatus(status);
+        statusListeners.forEach(sl -> sl.notify(status));
+    }
+
     public ArmStatus getRepoArmStatus() {
         return securityRepository.getArmStatus();
     }
 
     public void setRepoArmStatus(ArmStatus armStatus) {
+        if(armStatus == ArmStatus.DISARMED) {
+            setRepoAlarmStatus(AlarmStatus.NO_ALARM);
+        }
         securityRepository.setArmStatus(armStatus);
-    }
-
-    public void setRepoAlarmStatus(AlarmStatus status) {
-        securityRepository.setAlarmStatus(status);
-        statusListeners.forEach(sl -> sl.notify(status));
     }
 
     public Set<Sensor> getRepoSensors() {
@@ -109,15 +113,15 @@ public class SecurityService {
     public void removeRepoSensor(Sensor sensor) {
         securityRepository.removeSensor(sensor);
     }
-
-    public ArmStatus getRepooArmingStatus() {
-        return securityRepository.getArmStatus();
+    public boolean containsRepoSensor(Sensor sensor) {
+        return securityRepository.containsSensor(sensor);
     }
 
-    public void setRepoArmingStatus(ArmStatus armStatus) {
-        if(armStatus == ArmStatus.DISARMED) {
-            setRepoAlarmStatus(AlarmStatus.NO_ALARM);
-        }
-        securityRepository.setArmStatus(armStatus);
+    public void updateRepoSensor(Sensor sensor) {
+        securityRepository.addSensor(sensor);
+    }
+
+    public void clearRepoSensors() {
+        securityRepository.clearSensors();
     }
 }

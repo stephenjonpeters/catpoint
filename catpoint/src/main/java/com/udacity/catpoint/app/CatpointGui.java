@@ -1,7 +1,7 @@
 package com.udacity.catpoint.app;
 
 import com.udacity.catpoint.data.FakeSecurityRepository;
-import com.udacity.catpoint.data.SecurityRepository;
+import com.udacity.catpoint.data.FakeSecurityRepository;
 import com.udacity.catpoint.service.SecurityService;
 import com.udacity.images.service.FakeImageService;
 import net.miginfocom.swing.MigLayout;
@@ -15,7 +15,7 @@ import javax.swing.*;
  * all our dependencies and providing them to other classes as necessary.
  */
 public class CatpointGui extends JFrame {
-    private SecurityRepository securityRepository = FakeSecurityRepository.getInstance();
+    private FakeSecurityRepository securityRepository = new FakeSecurityRepository();
     private FakeImageService imageService = new FakeImageService();
     private SecurityService securityService = new SecurityService(securityRepository, imageService);
     private DisplayPanel displayPanel = new DisplayPanel(securityService);
