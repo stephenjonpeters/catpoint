@@ -33,7 +33,7 @@ public class ControlPanel extends JPanel {
         //add an action listener to each button that applies its arming status and recolors all the buttons
         buttonMap.forEach((k, v) -> {
             v.addActionListener(e -> {
-                securityService.setArmingStatus(k);
+                securityService.setRepoArmStatus(k);
                 buttonMap.forEach((status, button) -> button.setBackground(status == k ? status.getColor() : null));
             });
         });
@@ -41,7 +41,7 @@ public class ControlPanel extends JPanel {
         //map order above is arbitrary, so loop again in order to add buttons in enum-order
         Arrays.stream(ArmStatus.values()).forEach(status -> add(buttonMap.get(status)));
 
-        ArmStatus currentStatus = securityService.getArmingStatus();
+        ArmStatus currentStatus = securityService.getRepoArmStatus();
         buttonMap.get(currentStatus).setBackground(currentStatus.getColor());
 
 

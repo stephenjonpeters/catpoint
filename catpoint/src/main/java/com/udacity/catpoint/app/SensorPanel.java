@@ -65,7 +65,7 @@ public class SensorPanel extends JPanel {
      */
     private void updateSensorList(JPanel p) {
         p.removeAll();
-        securityService.getSensors().stream().sorted().forEach(s -> {
+        securityService.getRepoSensors().stream().sorted().forEach(s -> {
             JLabel sensorLabel = new JLabel(String.format("%s(%s): %s", s.getName(),  s.getSensorType().toString(),(s.getActive() ? "Active" : "Inactive")));
             JButton sensorToggleButton = new JButton((s.getActive() ? "Deactivate" : "Activate"));
             JButton sensorRemoveButton = new JButton("Remove Sensor");
@@ -98,8 +98,8 @@ public class SensorPanel extends JPanel {
      * @param sensor The sensor to add
      */
     private void addSensor(Sensor sensor) {
-        if(securityService.getSensors().size() < 4) {
-            securityService.addSensor(sensor);
+        if(securityService.getRepoSensors().size() < 4) {
+            securityService.addRepoSensor(sensor);
             updateSensorList(sensorListPanel);
         } else {
             JOptionPane.showMessageDialog(null, "To add more than 4 sensors, please subscribe to our Premium Membership!");
@@ -111,7 +111,7 @@ public class SensorPanel extends JPanel {
      * @param sensor The sensor to remove
      */
     private void removeSensor(Sensor sensor) {
-        securityService.removeSensor(sensor);
+        securityService.removeRepoSensor(sensor);
         updateSensorList(sensorListPanel);
     }
 }

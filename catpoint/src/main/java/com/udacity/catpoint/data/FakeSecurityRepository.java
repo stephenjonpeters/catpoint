@@ -5,9 +5,11 @@ import java.util.Set;
 public class FakeSecurityRepository implements SecurityRepository{
 
     private static FakeSecurityRepository instance;
-    private Set<Sensor> sensors;
+    Sensor window = new Sensor("window",SensorType.WINDOW);
+    Sensor door = new Sensor("door",SensorType.DOOR);
+    private Set<Sensor> sensors = Set.of(window,door);
     private AlarmStatus alarmStatus = AlarmStatus.NO_ALARM;
-    private ArmStatus armingStatus = ArmStatus.DISARMED;
+    private ArmStatus armStatus = ArmStatus.DISARMED;
     private FakeSecurityRepository(){}
 
     public static synchronized FakeSecurityRepository getInstance() {
@@ -16,7 +18,6 @@ public class FakeSecurityRepository implements SecurityRepository{
         }
         return instance;
     }
-
 
     @Override
     public void addSensor(Sensor sensor) {
@@ -40,22 +41,22 @@ public class FakeSecurityRepository implements SecurityRepository{
     }
 
     @Override
-    public AlarmStatus getAlarmStatus() {
-        return this.alarmStatus;
-    }
-
-    @Override
     public void setAlarmStatus(AlarmStatus alarmStatus) {
         this.alarmStatus = alarmStatus;
     }
 
     @Override
-    public ArmStatus getArmingStatus() {
-        return armingStatus;
+    public AlarmStatus getAlarmStatus() {
+        return alarmStatus;
     }
 
     @Override
-    public void setArmingStatus(ArmStatus armingStatus) {
-        this.armingStatus = armingStatus;
+    public ArmStatus getArmStatus() {
+        return armStatus;
+    }
+
+    @Override
+    public void setArmStatus(ArmStatus armStatus) {
+        this.armStatus = armStatus;
     }
 }

@@ -10,10 +10,10 @@ public interface SecurityRepository {
     void removeSensor(Sensor sensor);
     void updateSensor(Sensor sensor);
     void setAlarmStatus(AlarmStatus alarmStatus);
-    void setArmingStatus(ArmStatus armingStatus);
-    Set<Sensor> getSensors();
     AlarmStatus getAlarmStatus();
-    ArmStatus getArmingStatus();
+    void setArmStatus(ArmStatus armStatus);
+    ArmStatus getArmStatus();
+    Set<Sensor> getSensors();
 
 
 }
